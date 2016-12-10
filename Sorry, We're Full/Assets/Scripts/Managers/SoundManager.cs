@@ -8,10 +8,12 @@ using System.Collections.Generic;
 public enum SoundType
 {
     None,
-    ArrowLaunch,
-    ArrowHitObject,
-    ArrowHitAnimal,
-    ArrowHitEnemy
+    OutOfAmmo,
+    ProjectileLaunch,
+    ProjectileHitObject,
+    ProjectileHitAnimal,
+    ProjectileHitEnemy,
+    PickUpProjectile
 }
 
 public class SoundManager : MonoBehaviour {
@@ -28,7 +30,7 @@ public class SoundManager : MonoBehaviour {
         rng = new RandomWrapper();
     }
     
-    void PlaySound(SoundType soundType)
+    public void PlaySound(SoundType soundType)
     {
         foreach(GameSound gameSound in sounds)
         {

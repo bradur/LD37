@@ -13,6 +13,10 @@ public class WorldManager : MonoBehaviour
     private Transform projectileContainer;
     public Transform ProjectileContainer { get { return projectileContainer; } }
 
+    [SerializeField]
+    private Transform player;
+    public Transform Player { get { return player; } }
+
     void Awake()
     {
         main = this;

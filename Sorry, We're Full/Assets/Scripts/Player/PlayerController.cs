@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [Range(2f, 10f)]
     private float speedForward = 2f;
 
+    private int projectileCount = 5;
+
     [SerializeField]
     private Projectile projectilePrefab;
     private Rigidbody2D rb2D;
@@ -43,9 +45,17 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        Projectile projectile = Instantiate(projectilePrefab);
-        projectile.Launch(transform.position, transform.position + direction, projectileContainer);
-        Debug.Log("Attempting to shoot!");
+        if (projectileCount > 0)
+        {
+            SoundManager.main.PlaySound(SoundType.ProjectileLaunch);
+            Projectile projectile = Instantiate(projectilePrefab);
+            projectile.Launch(transform.position, transform.position + direction, projectileContainer);
+            projectileCount -= 1;
+        }
+        else
+        {
+            SoundManager.main.PlaySound(SoundType.OutOfAmmo);
+        }
     }
 
     void FixedUpdate()
@@ -56,9 +66,19 @@ public class PlayerController : MonoBehaviour
         rb2D.velocity = direction;
 
     }
-    
+
     void LateUpdate()
     {
         transform.rotation = Quaternion.identity;
+    }
+
+    void OnTriggerEnter2D(Collider2D collider2D)
+    {
+        if (collider2D.tag == "Projectile")
+        {
+            SoundManager.main.PlaySound(SoundType.PickUpProjectile);
+            projectileCount += 1;
+            Destroy(collider2D.gameObject);
+        }
     }
 }
