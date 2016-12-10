@@ -77,9 +77,9 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnCollisionEnter2D(Collision2D collision2D)
+    void OnTriggerEnter2D(Collider2D collider2D)
     {
-        if (collision2D.gameObject.tag == "Animal")
+        if (collider2D.gameObject.tag == "Animal")
         {
             isHit = true;
             rb2D.velocity = Vector2.zero;
@@ -103,7 +103,6 @@ public class Projectile : MonoBehaviour
                 launched = false;
                 pickable = true;
                 gameObject.layer = pickableLayer;
-                capsuleCollider2D.isTrigger = true;
                 rb2D.velocity = Vector2.zero;
             }
         }

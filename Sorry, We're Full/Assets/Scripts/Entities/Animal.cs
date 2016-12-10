@@ -5,10 +5,20 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public enum AnimalType
+{
+    None,
+    Deer
+}
+
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Animal : MonoBehaviour
 {
+
+    [SerializeField]
+    private AnimalType animalType;
+    public AnimalType AnimalType { get { return animalType; } }
 
     [SerializeField]
     [Range(1, 5)]
@@ -23,18 +33,19 @@ public class Animal : MonoBehaviour
     Rigidbody2D rb2D;
     PolygonCollider2D boxCollider2D;
 
-    private float stopMovementDrag = 5;
+    float minDrag = 2f;
+    private float stopMovementDrag = 8f;
     private float moveTimeMax = 7f;
     private float moveTimeMin = 3.5f;
     private float currentMoveTime = 0f;
     private bool moving = false;
 
     [SerializeField]
-    [Range(2.5f, 10f)]
+    [Range(5.5f, 10f)]
     private float speedMax = 4f;
 
     [SerializeField]
-    [Range(0.5f, 2f)]
+    [Range(2f, 5f)]
     private float speedMin = 2f;
 
     private int numProjectiles = 0;
@@ -53,11 +64,11 @@ public class Animal : MonoBehaviour
         MoveToRandomDirection();
     }
 
-    void OnCollisionEnter2D(Collision2D collision2D)
+    void OnTriggerEnter2D(Collider2D collider2D)
     {
-        if (collision2D.gameObject.tag == "Projectile")
+        if (collider2D.gameObject.tag == "Projectile")
         {
-            collision2D.transform.SetParent(transform, true);
+            collider2D.transform.SetParent(transform, true);
             GetHit(Weapon.Bow);
         }
     }
@@ -73,7 +84,7 @@ public class Animal : MonoBehaviour
 
     void Die(Weapon weapon)
     {
-        WorldManager.main.AnimalWasKilled(this, weapon, numProjectiles);
+        UIManager.main.ShowMessage(animalType, weapon, numProjectiles);
         Destroy(gameObject);
     }
 
@@ -91,10 +102,11 @@ public class Animal : MonoBehaviour
             currentMoveTime -= Time.deltaTime;
             if (currentMoveTime <= 0.1f)
             {
-                rb2D.drag = 0;
+                rb2D.drag = minDrag;
                 MoveToRandomDirection();
             }
-            else if (currentMoveTime <= 2.5f) {
+            else if (currentMoveTime <= 2.5f)
+            {
                 rb2D.drag = stopMovementDrag;
             }
         }

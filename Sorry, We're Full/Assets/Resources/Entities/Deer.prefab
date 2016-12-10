@@ -56,7 +56,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 2
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5aaaea22ec93d498ce4fcbb7be23aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animalType: 1
   health: 3
   possibleDirectionsAsDegrees:
   - 45
@@ -112,8 +113,8 @@ MonoBehaviour:
   - 90
   - 180
   - 270
-  speedMax: 4
-  speedMin: 2
+  speedMax: 8.17
+  speedMin: 5
 --- !u!212 &212741508749483418
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             SoundManager.main.PlaySound(SoundType.OutOfAmmo);
+            UIManager.main.ShowMessage(currentWeapon, MessageType.NoAmmo);
         }
     }
 
