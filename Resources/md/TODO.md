@@ -5,8 +5,8 @@
 [ ] Inn
 [ ] Dialogue
 [ ] At least a couple customer fights
-[ ] Fix annoying overlaying texts
-[ ] Fix arrow shoot direction resetting when not moving
+[x] Fix annoying overlaying texts
+[x] Fix arrow shoot direction resetting when not moving
 [ ] Sounds
     [ ] Arrow shoot
     [ ] Arrow hit tree

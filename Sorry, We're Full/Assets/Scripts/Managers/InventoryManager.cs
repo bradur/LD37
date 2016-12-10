@@ -96,7 +96,7 @@ public class InventoryManager : MonoBehaviour
             if (ownedItem.InventoryItemType == itemType)
             {
                 ownedItem.Count += addition;
-                FindUIOwnedItem(ownedItem).UpdateItemCount(ownedItem.Count);
+                FindUIOwnedItem(ownedItem).UpdateItemCount(ownedItem.Count, addition > 0);
                 break;
             }
         }

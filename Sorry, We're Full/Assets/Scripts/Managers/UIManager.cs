@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour {
 
     public static UIManager main;
 
+
     [SerializeField]
     private List<AnimalColor> animalColors = new List<AnimalColor>();
 

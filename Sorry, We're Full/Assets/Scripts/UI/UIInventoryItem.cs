@@ -35,14 +35,17 @@ public class UIInventoryItem : MonoBehaviour {
         imgItem.sprite = item.Sprite;
     }
 
-    public void UpdateItemCount(int count)
+    public void UpdateItemCount(int count, bool isAddition = true)
     {
         if(count == 0)
         {
             RemoveItem();
         }
         txtItemCount.text = count.ToString();
-        UIManager.main.ShowMessage(MessageType.ItemCountUpdate, inventoryItem.InventoryItemType, count);
+        if (isAddition)
+        {
+            UIManager.main.ShowMessage(MessageType.ItemCountUpdate, inventoryItem.InventoryItemType, count);
+        }
     }
 
     public void RemoveItem()

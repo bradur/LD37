@@ -93,8 +93,9 @@ public class Animal : MonoBehaviour
                 lootItems.Add(new InventoryItem(InventoryItemType.Arrows, 1));
             }
 
-
-            GetHit(Weapon.Bow);
+            if (!isDead) { 
+                GetHit(Weapon.Bow);
+            }
         }
     }
 

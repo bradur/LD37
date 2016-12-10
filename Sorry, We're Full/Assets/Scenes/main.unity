@@ -3437,6 +3437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageFadeTime: 1
+  messageMinInterval: 1.102
   displayMessagePrefab: {fileID: 114844325640893632, guid: 9153d365fc17a0a4c9fc10c8f0a4f771,
     type: 2}
   displayMessageContainer: {fileID: 1873861557}
@@ -3656,7 +3657,7 @@ MonoBehaviour:
     Count: 5
     Sprite: {fileID: 21300020, guid: eb6b4f7d288443543a6fc56e5efde24b, type: 3}
   - InventoryItemType: 4
-    Count: 3
+    Count: 13
     Sprite: {fileID: 21300000, guid: eb6b4f7d288443543a6fc56e5efde24b, type: 3}
   - InventoryItemType: 2
     Count: 1
