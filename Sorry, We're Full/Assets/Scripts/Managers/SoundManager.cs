@@ -13,7 +13,8 @@ public enum SoundType
     ProjectileHitObject,
     ProjectileHitAnimal,
     ProjectileHitEnemy,
-    PickUpProjectile
+    PickUpProjectile,
+    SwingWeapon
 }
 
 public class SoundManager : MonoBehaviour {

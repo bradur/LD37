@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
     private bool launched = false;
 
     private bool pickable = false;
-
+    private bool isHit = false;
     private LayerMask launchedLayer;
     private LayerMask pickableLayer;
 
@@ -77,39 +77,45 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void OnCollisionEnter2D(Collision2D collision2D)
+    void OnCollisionEnter2D(Collision2D collision2D)
     {
-        if (collision2D.gameObject.tag == "")
+        if (collision2D.gameObject.tag == "Animal")
         {
-
+            isHit = true;
+            rb2D.velocity = Vector2.zero;
+            rb2D.isKinematic = true;
         }
     }
 
     void Update()
     {
-        if (useLifeTime)
-        {
-            currentLifeTime -= Time.deltaTime;
-            if (currentLifeTime < 0)
+        if (!isHit) { 
+            if (useLifeTime)
             {
-                Destroy(gameObject);
+                currentLifeTime -= Time.deltaTime;
+                if (currentLifeTime < 0)
+                {
+                    Destroy(gameObject);
+                }
             }
-        }
-        if (launched && rb2D.velocity.magnitude <= stoppingspeed)
-        {
-            launched = false;
-            pickable = true;
-            gameObject.layer = pickableLayer;
-            capsuleCollider2D.isTrigger = true;
-            rb2D.velocity = Vector2.zero;
+            if (launched && rb2D.velocity.magnitude <= stoppingspeed)
+            {
+                launched = false;
+                pickable = true;
+                gameObject.layer = pickableLayer;
+                capsuleCollider2D.isTrigger = true;
+                rb2D.velocity = Vector2.zero;
+            }
         }
     }
 
     private void LateUpdate()
     {
-        Vector3 direction = transform.eulerAngles;
-        direction.x = 0f;
-        direction.y = 0f;
-        transform.eulerAngles = direction;
+        if (!isHit) { 
+            Vector3 direction = transform.eulerAngles;
+            direction.x = 0f;
+            direction.y = 0f;
+            transform.eulerAngles = direction;
+        }
     }
 }

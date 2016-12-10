@@ -3,7 +3,6 @@
 // Author : bradur
 
 using System.Collections.Generic;
-
 public class RandomWrapper
 {
 
@@ -17,6 +16,11 @@ public class RandomWrapper
     public int Range(int min, int max)
     {
         return rng.Next(min, max);
+    }
+
+    public float Range(float min, float max)
+    {
+        return (float)rng.NextDouble() * (max - min) + min;
     }
 
     public T Choose<T>(List<T> list)

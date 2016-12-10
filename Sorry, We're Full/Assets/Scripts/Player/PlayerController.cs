@@ -4,6 +4,13 @@
 
 using UnityEngine;
 
+public enum Weapon
+{
+    None,
+    Bow,
+    Dagger
+}
+
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -21,12 +28,17 @@ public class PlayerController : MonoBehaviour
     private Transform projectileContainer;
 
     private KeyCode shootKey;
+    private KeyCode hitKey;
+
+    [SerializeField]
+    private Weapon currentWeapon = Weapon.None;
 
     Vector3 direction;
 
     void Start()
     {
         shootKey = KeyManager.main.GetKey(Action.Shoot);
+        hitKey = KeyManager.main.GetKey(Action.Hit);
         if (rb2D == null)
         {
             rb2D = GetComponent<Rigidbody2D>();
@@ -37,9 +49,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyUp(shootKey))
+        if (currentWeapon == Weapon.Bow)
         {
-            Shoot();
+            if (Input.GetKeyUp(shootKey))
+            {
+                Shoot();
+            }
+        } else if (currentWeapon != Weapon.None)
+        {
+            if (Input.GetKeyUp(hitKey))
+            {
+                SwingWeapon();
+            }
         }
     }
 
@@ -56,6 +77,11 @@ public class PlayerController : MonoBehaviour
         {
             SoundManager.main.PlaySound(SoundType.OutOfAmmo);
         }
+    }
+
+    void SwingWeapon()
+    {
+        SoundManager.main.PlaySound(SoundType.SwingWeapon);
     }
 
     void FixedUpdate()

@@ -22,5 +22,8 @@ public class WorldManager : MonoBehaviour
         main = this;
     }
 
-
+    public void AnimalWasKilled(Animal animal, Weapon weapon, int numProjectiles)
+    {
+        UIManager.main.ShowMessage("You killed " + animal + " with your " + weapon);
+    }
 }
