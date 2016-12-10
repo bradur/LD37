@@ -111,6 +111,7 @@ public class Animal : MonoBehaviour
     void StartDying(Weapon weapon)
     {
         UIManager.main.ShowMessage(animalType, weapon, numProjectiles);
+        SoundManager.main.PlaySound(SoundType.AnimalDie);
         isDead = true;
         polygonCollider2D.isTrigger = true;
         rb2D.isKinematic = true;

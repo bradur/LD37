@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 60831264300747618}
   - component: {fileID: 114742234703055624}
   - component: {fileID: 95875980693206438}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Deer
   m_TagString: Animal
   m_Icon: {fileID: 0}

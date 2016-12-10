@@ -87,8 +87,10 @@ public class Projectile : MonoBehaviour
         if (collider2D.gameObject.tag == "Animal")
         {
             capsuleCollider2D.enabled = false;
+            SoundManager.main.PlaySound(SoundType.ProjectileHitAnimal);
         } else
         {
+            SoundManager.main.PlaySound(SoundType.ProjectileHitObject);
             pickable = true;
             gameObject.layer = pickableLayer;
             launched = false;

@@ -14,6 +14,7 @@ public enum SoundType
     ProjectileHitAnimal,
     ProjectileHitEnemy,
     PickUpProjectile,
+    AnimalDie,
     SwingWeapon
 }
 
