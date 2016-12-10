@@ -78,6 +78,22 @@ public class Animal : MonoBehaviour
         if (collider2D.gameObject.tag == "Projectile")
         {
             collider2D.transform.SetParent(transform, true);
+            bool arrowsFound = false;
+            foreach (InventoryItem item in lootItems)
+            {
+                if (item.InventoryItemType == InventoryItemType.Arrows)
+                {
+                    arrowsFound = true;
+                    item.Count += 1;
+                    break;
+                }
+            }
+            if (!arrowsFound)
+            {
+                lootItems.Add(new InventoryItem(InventoryItemType.Arrows, 1));
+            }
+
+
             GetHit(Weapon.Bow);
         }
     }

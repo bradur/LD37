@@ -22,6 +22,9 @@ public class InventoryManager : MonoBehaviour
     [SerializeField]
     private Transform inventoryContainer;
 
+    [SerializeField]
+    private Sprite arrowSprite;
+
     void Awake()
     {
         main = this;
@@ -39,15 +42,16 @@ public class InventoryManager : MonoBehaviour
     {
         for (int i = 0; i < ownedItems.Count; i++)
         {
-            Debug.Log("Adding " + ownedItems[i].InventoryItemType);
             AddToUI(ownedItems[i], i);
         }
     }
 
     public void RemoveFromInventory(InventoryItem inventoryItem)
     {
-        ownedItems.Remove(inventoryItem);
-        uiOwnedItems.Remove(FindUIOwnedItem(inventoryItem));
+        if(inventoryItem.InventoryItemType != InventoryItemType.Coins && inventoryItem.InventoryItemType != InventoryItemType.Arrows) { 
+            ownedItems.Remove(inventoryItem);
+            uiOwnedItems.Remove(FindUIOwnedItem(inventoryItem));
+        }
     }
 
     UIInventoryItem FindUIOwnedItem(InventoryItem inventoryItem)
@@ -77,6 +81,27 @@ public class InventoryManager : MonoBehaviour
         uiOwnedItems.Add(item);
     }
 
+    public void AddToInventory(InventoryItemType itemType, int count)
+    {
+        if(itemType == InventoryItemType.Arrows)
+        {
+            AddToInventory(new InventoryItem(itemType, count, arrowSprite));
+        }
+    }
+
+    public void AddToCount(InventoryItemType itemType, int addition)
+    {
+        foreach (InventoryItem ownedItem in ownedItems)
+        {
+            if (ownedItem.InventoryItemType == itemType)
+            {
+                ownedItem.Count += addition;
+                FindUIOwnedItem(ownedItem).UpdateItemCount(ownedItem.Count);
+                break;
+            }
+        }
+    }
+
     void AddToInventory(InventoryItem lootItem)
     {
         bool isNewItem = false;
@@ -101,5 +126,17 @@ public class InventoryManager : MonoBehaviour
             AddToUI(lootItem);
             ownedItems.Add(lootItem);
         }
+    }
+
+    public int GetItemCount(InventoryItemType inventoryItemType) {
+        int count = -1;
+        foreach (InventoryItem ownedItem in ownedItems)
+        {
+            if (ownedItem.InventoryItemType == inventoryItemType)
+            {
+                return ownedItem.Count;
+            }
+        }
+        return count;
     }
 }

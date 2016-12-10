@@ -81,12 +81,17 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider2D)
     {
+        isHit = true;
+        rb2D.velocity = Vector2.zero;
+        rb2D.isKinematic = true;
         if (collider2D.gameObject.tag == "Animal")
         {
-            isHit = true;
-            rb2D.velocity = Vector2.zero;
-            rb2D.isKinematic = true;
             capsuleCollider2D.enabled = false;
+        } else
+        {
+            pickable = true;
+            gameObject.layer = pickableLayer;
+            launched = false;
         }
     }
 

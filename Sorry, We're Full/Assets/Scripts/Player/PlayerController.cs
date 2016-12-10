@@ -11,7 +11,7 @@ public enum Weapon
     Dagger
 }
 
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
@@ -19,8 +19,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     [Range(2f, 10f)]
     private float speedForward = 2f;
-
-    private int projectileCount = 5;
 
     [SerializeField]
     private Projectile projectilePrefab;
@@ -67,12 +65,12 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        if (projectileCount > 0)
+        if (InventoryManager.main.GetItemCount(InventoryItemType.Arrows) > 0)
         {
             SoundManager.main.PlaySound(SoundType.ProjectileLaunch);
             Projectile projectile = Instantiate(projectilePrefab);
             projectile.Launch(transform.position, transform.position + direction, projectileContainer);
-            projectileCount -= 1;
+            InventoryManager.main.AddToCount(InventoryItemType.Arrows, -1);
         }
         else
         {
@@ -105,7 +103,7 @@ public class PlayerController : MonoBehaviour
         if (collider2D.tag == "Projectile")
         {
             SoundManager.main.PlaySound(SoundType.PickUpProjectile);
-            projectileCount += 1;
+            InventoryManager.main.AddToInventory(InventoryItemType.Arrows, 1);
             Destroy(collider2D.gameObject);
         }
         else if (collider2D.tag == "Animal")

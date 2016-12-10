@@ -47,7 +47,7 @@ public class UIInventoryItem : MonoBehaviour {
 
     public void RemoveItem()
     {
-        if(inventoryItem.InventoryItemType != InventoryItemType.Coins)
+        if(inventoryItem.InventoryItemType != InventoryItemType.Coins && inventoryItem.InventoryItemType != InventoryItemType.Arrows)
         {
             InventoryManager.main.RemoveFromInventory(inventoryItem);
             animator.SetTrigger("Remove");
