@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private Weapon currentWeapon = Weapon.None;
 
     Vector3 direction;
+    Vector3 arrowDirection;
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
             rb2D = GetComponent<Rigidbody2D>();
         }
         direction = -transform.right;
+        arrowDirection = direction;
         projectileContainer = WorldManager.main.ProjectileContainer;
     }
 
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
         {
             SoundManager.main.PlaySound(SoundType.ProjectileLaunch);
             Projectile projectile = Instantiate(projectilePrefab);
-            projectile.Launch(transform.position, transform.position + direction, projectileContainer);
+            projectile.Launch(transform.position, transform.position + arrowDirection, projectileContainer);
             InventoryManager.main.AddToCount(InventoryItemType.Arrows, -1);
         }
         else
@@ -90,7 +92,10 @@ public class PlayerController : MonoBehaviour
         float verticalAxis = Input.GetAxis("Vertical");
         direction = new Vector3(horizontalAxis * speedForward, verticalAxis * speedForward, 0f);
         rb2D.velocity = direction;
-
+        if (Mathf.Abs(horizontalAxis) >= 0.05f || Mathf.Abs(verticalAxis) >= 0.05f)
+        {
+            arrowDirection = direction;
+        }
     }
 
     void LateUpdate()
