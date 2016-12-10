@@ -90,8 +90,10 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalAxis = Input.GetAxis("Horizontal");
         float verticalAxis = Input.GetAxis("Vertical");
+
         direction = new Vector3(horizontalAxis * speedForward, verticalAxis * speedForward, 0f);
         rb2D.velocity = direction;
+
         if (Mathf.Abs(horizontalAxis) >= 0.05f || Mathf.Abs(verticalAxis) >= 0.05f)
         {
             arrowDirection = direction;
