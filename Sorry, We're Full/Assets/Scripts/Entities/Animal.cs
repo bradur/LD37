@@ -11,6 +11,7 @@ public enum AnimalType
     Deer
 }
 
+[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Animal : MonoBehaviour
@@ -30,8 +31,11 @@ public class Animal : MonoBehaviour
     private List<Vector2> possibleVectorDirections = new List<Vector2>();
     private RandomWrapper rng;
 
+    [SerializeField]
+    private List<InventoryItem> lootItems = new List<InventoryItem>();
+
     Rigidbody2D rb2D;
-    PolygonCollider2D boxCollider2D;
+    PolygonCollider2D polygonCollider2D;
 
     float minDrag = 2f;
     private float stopMovementDrag = 8f;
@@ -39,6 +43,7 @@ public class Animal : MonoBehaviour
     private float moveTimeMin = 3.5f;
     private float currentMoveTime = 0f;
     private bool moving = false;
+    private bool isDead = false;
 
     [SerializeField]
     [Range(5.5f, 10f)]
@@ -48,11 +53,15 @@ public class Animal : MonoBehaviour
     [Range(2f, 5f)]
     private float speedMin = 2f;
 
+    [SerializeField]
+    private Animator animator;
+
     private int numProjectiles = 0;
 
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        polygonCollider2D = GetComponent<PolygonCollider2D>();
         rng = new RandomWrapper();
         foreach (float degreeDirection in possibleDirectionsAsDegrees)
         {
@@ -78,14 +87,28 @@ public class Animal : MonoBehaviour
         health -= 1;
         if (health < 1)
         {
-            Die(weapon);
+            StartDying(weapon);
         }
     }
 
-    void Die(Weapon weapon)
+    void StartDying(Weapon weapon)
     {
         UIManager.main.ShowMessage(animalType, weapon, numProjectiles);
+        isDead = true;
+        polygonCollider2D.isTrigger = true;
+        rb2D.isKinematic = true;
+        moving = false;
+    }
+
+    void Die()
+    {
         Destroy(gameObject);
+    }
+
+    public List<InventoryItem> Loot()
+    {
+        animator.SetTrigger("Loot");
+        return lootItems;
     }
 
     void MoveToRandomDirection()

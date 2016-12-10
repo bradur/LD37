@@ -55,7 +55,8 @@ public class PlayerController : MonoBehaviour
             {
                 Shoot();
             }
-        } else if (currentWeapon != Weapon.None)
+        }
+        else if (currentWeapon != Weapon.None)
         {
             if (Input.GetKeyUp(hitKey))
             {
@@ -107,5 +108,10 @@ public class PlayerController : MonoBehaviour
             projectileCount += 1;
             Destroy(collider2D.gameObject);
         }
+        else if (collider2D.tag == "Animal")
+        {
+            InventoryManager.main.Loot(collider2D.GetComponent<Animal>().Loot());
+        }
+
     }
 }

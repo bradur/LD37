@@ -10,7 +10,8 @@ using System.Collections.Generic;
 public enum MessageType
 {
     None,
-    NoAmmo
+    NoAmmo,
+    ItemCountUpdate
 }
 
 public class UIManager : MonoBehaviour {
@@ -22,6 +23,9 @@ public class UIManager : MonoBehaviour {
 
     [SerializeField]
     private List<WeaponColor> weaponColors = new List<WeaponColor>();
+
+    [SerializeField]
+    private List<InventoryItemColor> itemColors = new List<InventoryItemColor>();
 
     [SerializeField]
     private DisplayMessageManager displayMessageManager;
@@ -58,6 +62,26 @@ public class UIManager : MonoBehaviour {
         return string.Format("{0:X2}{1:X2}{2:X2}", weaponColor.r, weaponColor.g, weaponColor.b);
     }
 
+
+    string GetColorAsString(InventoryItemType weapon)
+    {
+        Color32 itemColor = GetInventoryItemColor(weapon);
+        return string.Format("{0:X2}{1:X2}{2:X2}", itemColor.r, itemColor.g, itemColor.b);
+    }
+
+    public void ShowMessage(MessageType messageType, InventoryItemType inventoryItemType, int value)
+    {
+        if (messageType == MessageType.ItemCountUpdate)
+        {
+            ShowMessage(string.Format(
+                "You now have {0} <color=#{1}><b>{2}</b></color>!",
+                value,
+                GetColorAsString(inventoryItemType),
+                inventoryItemType
+            ));
+        }
+    }
+
     public void ShowMessage(Weapon weapon, MessageType messageType)
     {
         if (messageType == MessageType.NoAmmo)
@@ -69,6 +93,19 @@ public class UIManager : MonoBehaviour {
             ));
         }
     }
+
+    public Color GetInventoryItemColor(InventoryItemType inventoryItem)
+    {
+        foreach (InventoryItemColor itemColor in itemColors)
+        {
+            if (itemColor.Item == inventoryItem)
+            {
+                return itemColor.Color;
+            }
+        }
+        return Color.white;
+    }
+
 
     public Color GetAnimalColor(AnimalType animal)
     {
@@ -106,5 +143,12 @@ public class AnimalColor: System.Object
 public class WeaponColor : System.Object
 {
     public Weapon Weapon;
+    public Color Color;
+}
+
+[System.Serializable]
+public class InventoryItemColor : System.Object
+{
+    public InventoryItemType Item;
     public Color Color;
 }
