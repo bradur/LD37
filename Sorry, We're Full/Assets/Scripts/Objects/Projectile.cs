@@ -20,6 +20,8 @@ public class Projectile : MonoBehaviour
     [Range(1f, 50f)]
     private float speed = 1f;
 
+    [SerializeField]
+    [Range(0.2f, 1.2f)]
     private float stoppingspeed = 0.2f;
 
     [SerializeField]
@@ -84,6 +86,7 @@ public class Projectile : MonoBehaviour
             isHit = true;
             rb2D.velocity = Vector2.zero;
             rb2D.isKinematic = true;
+            capsuleCollider2D.enabled = false;
         }
     }
 

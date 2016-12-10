@@ -37,7 +37,7 @@ public class Animal : MonoBehaviour
     Rigidbody2D rb2D;
     PolygonCollider2D polygonCollider2D;
 
-    float minDrag = 2f;
+    float minDrag = 0f;
     private float stopMovementDrag = 8f;
     private float moveTimeMax = 7f;
     private float moveTimeMin = 3.5f;
@@ -46,12 +46,12 @@ public class Animal : MonoBehaviour
     private bool isDead = false;
 
     [SerializeField]
-    [Range(5.5f, 10f)]
-    private float speedMax = 4f;
+    [Range(2.5f, 10f)]
+    private float speedMax = 2.5f;
 
     [SerializeField]
-    [Range(2f, 5f)]
-    private float speedMin = 2f;
+    [Range(0.5f, 2f)]
+    private float speedMin = 1f;
 
     [SerializeField]
     private Animator animator;
@@ -97,6 +97,7 @@ public class Animal : MonoBehaviour
         isDead = true;
         polygonCollider2D.isTrigger = true;
         rb2D.isKinematic = true;
+        rb2D.velocity = Vector2.zero;
         moving = false;
     }
 

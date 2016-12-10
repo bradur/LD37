@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50738101153037348}
   - component: {fileID: 60831264300747618}
   - component: {fileID: 114742234703055624}
+  - component: {fileID: 95875980693206438}
   m_Layer: 0
   m_Name: Deer
   m_TagString: Animal
@@ -36,8 +37,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1623546277578396}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -29.2, y: -37.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,15 +55,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 2
+  m_LinearDrag: 5
   m_AngularDrag: 2
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &60831264300747618
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -77,17 +78,52 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.5}
-      - {x: -0.71875, y: 0.5}
-      - {x: -0.96875, y: 0.375}
+    - - {x: 0.048959643, y: 0.13047853}
+      - {x: -0.042983197, y: 0.13481826}
+      - {x: -0.07289722, y: 0.16804181}
+      - {x: -0.4324824, y: 0.15953244}
+      - {x: -0.43856767, y: 0.326339}
+      - {x: -0.19227093, y: 0.40507543}
+      - {x: -0.2641506, y: 0.48791617}
+      - {x: -0.45799127, y: 0.4267828}
+      - {x: -0.50177443, y: 0.51984274}
+      - {x: -0.6758764, y: 0.48019692}
+      - {x: -0.8099956, y: 0.3439995}
+      - {x: -0.89863175, y: 0.3217859}
+      - {x: -0.9382567, y: 0.20991996}
+      - {x: -0.8186362, y: 0.09537631}
+      - {x: -0.75976807, y: -0.14864205}
       - {x: -0.96875, y: -0.4375}
-      - {x: -0.9375, y: -0.5}
-      - {x: -0.46875, y: -0.5}
-      - {x: -0.4375, y: -0.4375}
-      - {x: -0.21875, y: -0.5}
-      - {x: 0.5, y: -0.5}
-      - {x: 0.5, y: 0.15625}
-      - {x: 0.4375, y: 0.34375}
+      - {x: -0.91983956, y: -0.45879233}
+      - {x: -0.518788, y: -0.4499621}
+      - {x: -0.4816511, y: -0.41983953}
+      - {x: -0.4881687, y: -0.23632829}
+      - {x: -0.21580657, y: -0.25569725}
+      - {x: 0.13910724, y: -0.2674095}
+      - {x: 0.10736079, y: -0.47054026}
+      - {x: 0.38226372, y: -0.47645274}
+      - {x: 0.4184185, y: -0.1136353}
+      - {x: 0.4492568, y: -0.06558479}
+      - {x: 0.44835782, y: 0.08978675}
+      - {x: 0.39698085, y: 0.106212005}
+      - {x: 0.26972586, y: 0.13771161}
+--- !u!95 &95875980693206438
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1623546277578396}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 21b0e23ecc39d214c81c91851778d5ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114742234703055624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,8 +149,16 @@ MonoBehaviour:
   - 90
   - 180
   - 270
-  speedMax: 8.17
-  speedMin: 5
+  lootItems:
+  - InventoryItemType: 1
+    Count: 1
+    Sprite: {fileID: 21300024, guid: eb6b4f7d288443543a6fc56e5efde24b, type: 3}
+  - InventoryItemType: 3
+    Count: 5
+    Sprite: {fileID: 21300020, guid: eb6b4f7d288443543a6fc56e5efde24b, type: 3}
+  speedMax: 2.61
+  speedMin: 2
+  animator: {fileID: 95875980693206438}
 --- !u!212 &212741508749483418
 SpriteRenderer:
   m_ObjectHideFlags: 1

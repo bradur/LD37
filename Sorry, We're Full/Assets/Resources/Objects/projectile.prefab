@@ -90,6 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 25
   speed: 1.9
+  stoppingspeed: 0.638
   useLifeTime: 0
 --- !u!212 &212576174870685934
 SpriteRenderer:
