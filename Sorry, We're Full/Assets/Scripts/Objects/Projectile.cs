@@ -88,6 +88,9 @@ public class Projectile : MonoBehaviour
         {
             capsuleCollider2D.enabled = false;
             SoundManager.main.PlaySound(SoundType.ProjectileHitAnimal);
+        } else if (collider2D.gameObject.tag == "Enemy") {
+            capsuleCollider2D.enabled = false;
+            SoundManager.main.PlaySound(SoundType.ProjectileHitEnemy);
         } else
         {
             SoundManager.main.PlaySound(SoundType.ProjectileHitObject);

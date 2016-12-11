@@ -18,7 +18,9 @@ public enum Action
     SellMeat,
     BuyWeapon,
     BuyArrows,
-    RentRoom
+    RentRoom,
+    StartFight,
+    RestartGame
 }
 
 public class KeyManager : MonoBehaviour {

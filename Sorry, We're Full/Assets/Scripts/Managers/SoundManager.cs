@@ -18,7 +18,8 @@ public enum SoundType
     SwingWeapon,
     SellItem,
     BuyItem,
-    EquipItem
+    EquipItem,
+    PlayerWasHit
 }
 
 public class SoundManager : MonoBehaviour {

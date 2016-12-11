@@ -82,15 +82,19 @@ public class DisplayWeaponManager : MonoBehaviour
         if (weapon == InventoryItemType.Dagger)
         {
             imgWeapon.sprite = daggersprite;
+            WorldManager.main.Player.GetComponent<PlayerController>().EquipWeapon(weapon, daggersprite);
         }
         else if (weapon == InventoryItemType.ShortSword)
         {
             imgWeapon.sprite = shortSwordSprite;
+            WorldManager.main.Player.GetComponent<PlayerController>().EquipWeapon(weapon, shortSwordSprite);
         }
         else if (weapon == InventoryItemType.Scimitar)
         {
             imgWeapon.sprite = scimitarSprite;
+            WorldManager.main.Player.GetComponent<PlayerController>().EquipWeapon(weapon, scimitarSprite);
         }
+
         
         txtWeapon.text = string.Format("<color=#{0}><b>{1}</b></color>",UIManager.main.GetColorAsString(weapon), weapon);
         SoundManager.main.PlaySound(SoundType.EquipItem);

@@ -31,9 +31,41 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private DisplayWeaponManager displayWeaponManager;
 
+    [SerializeField]
+    private DisplayPlayerHealth displayPlayerHealth;
+
+    [SerializeField]
+    private DisplayPlayerHealth displayEnemyHealth;
+
     void Awake()
     {
         main = this;
+    }
+
+    public void GainLevel(int level)
+    {
+        displayPlayerHealth.GainLevel(level);
+    }
+
+    public int AddToPlayerHealth(int addition)
+    {
+        return displayPlayerHealth.AddToHealth(addition);
+    }
+
+    public void InitEnemyHealth(Customer customer, Enemy enemy)
+    {
+        displayEnemyHealth.gameObject.SetActive(true);
+        displayEnemyHealth.InitEnemy(customer, enemy);
+    }
+
+    public void HideEnemyHealth()
+    {
+        displayEnemyHealth.gameObject.SetActive(false);
+    }
+
+    public int AddToEnemyHealth(int addition)
+    {
+        return displayEnemyHealth.AddToHealth(addition);
     }
 
     public void EquipNewWeapon(InventoryItemType weapon)
@@ -46,6 +78,16 @@ public class UIManager : MonoBehaviour {
         displayMessageManager.ShowMessage(message);
     }
 
+    public void LoopQueue()
+    {
+        displayMessageManager.LoopQueue();
+    }
+
+    public void ClearQueue()
+    {
+        displayMessageManager.ClearQueue();
+    }
+
     public void ShowMessage(AnimalType animal, InventoryItemType weapon, int projectileCount)
     {
         ShowMessage(string.Format(
@@ -56,6 +98,13 @@ public class UIManager : MonoBehaviour {
             weapon
         ));
     }
+
+    public string GetColorAsString(Color color)
+    {
+        Color32 color32 = color;
+        return string.Format("{0:X2}{1:X2}{2:X2}", color32.r, color32.g, color32.b);
+    }
+
 
     public string GetColorAsString(AnimalType animalType)
     {

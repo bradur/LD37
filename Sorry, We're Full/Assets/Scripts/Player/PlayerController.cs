@@ -29,7 +29,18 @@ public class PlayerController : MonoBehaviour
     public InventoryItemType EquippedWeapon { get { return equippedWeapon; }  set { equippedWeapon = value; } }
 
     Vector3 direction;
-    Vector3 arrowDirection;
+    private Vector3 arrowDirection;
+    public Vector3 ArrowDirection { set { arrowDirection = value; } }
+
+    [SerializeField]
+    private Weapon weapon;
+
+    public void EquipWeapon(InventoryItemType newWeapon, Sprite sprite)
+    {
+        equippedWeapon = newWeapon;
+        weapon.gameObject.SetActive(true);
+        weapon.EquipNew(newWeapon, sprite);
+    }
 
     void Start()
     {
@@ -44,6 +55,8 @@ public class PlayerController : MonoBehaviour
         projectileContainer = WorldManager.main.ProjectileContainer;
     }
 
+    
+
     void Update()
     {
         if (currentWeapon == InventoryItemType.Bow)
@@ -53,11 +66,11 @@ public class PlayerController : MonoBehaviour
                 Shoot();
             }
         }
-        else if (equippedWeapon != InventoryItemType.Bow)
+        if (equippedWeapon != InventoryItemType.Bow)
         {
             if (Input.GetKeyUp(hitKey))
             {
-                SwingWeapon();
+                SwingWeapon((transform.position + arrowDirection.normalized));
             }
         }
     }
@@ -78,8 +91,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void SwingWeapon()
+    void SwingWeapon(Vector3 position)
     {
+        weapon.SwingAt(position);
         SoundManager.main.PlaySound(SoundType.SwingWeapon);
     }
 

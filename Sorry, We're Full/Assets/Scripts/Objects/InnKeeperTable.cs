@@ -33,15 +33,24 @@ public class InnKeeperTable : MonoBehaviour
                 {
                     if (iToldYou == 0)
                     {
-                        UIManager.main.ShowMessage(string.Format(
-                            "<color=green><b>INNKEEPER</b></color>: We only have one room, {0} <color=#{1}><b>{2}</b></color> for a night.",
-                            WorldManager.main.Player.GetComponent<Business>().RoomPrice,
-                            UIManager.main.GetColorAsString(InventoryItemType.Coins),
-                            InventoryItemType.Coins
-                        ));
-                        UIManager.main.ShowMessage(string.Format(
-                            "<color=green><b>INNKEEPER</b></color>: But it's taken!"
-                        ));
+                        if(WorldManager.main.Level == 0) { 
+                            UIManager.main.ShowMessage(string.Format(
+                                "<color=green><b>INNKEEPER</b></color>: We only have one room, {0} <color=#{1}><b>{2}</b></color> for a night.",
+                                WorldManager.main.Player.GetComponent<Business>().RoomPrice,
+                                UIManager.main.GetColorAsString(InventoryItemType.Coins),
+                                InventoryItemType.Coins
+                            ));
+                            UIManager.main.ShowMessage(string.Format(
+                                "<color=green><b>INNKEEPER</b></color>: But it's taken!"
+                            ));
+                        } else
+                        {
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: Good morning!");
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: A customer came during the night and rented the room.");
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: I'm sorry, but rules are rules!.");
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: Looks like you're going to have to make \"a deal\" again.");
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: I think the gentleman is outside, near the arena.");
+                        }
                         iToldYou++;
                     }
                     else if (iToldYou == 1)

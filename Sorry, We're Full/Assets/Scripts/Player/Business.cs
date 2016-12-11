@@ -51,6 +51,7 @@ public class Business : MonoBehaviour
     public int RoomPrice { get { return roomPrice; } }
 
     private bool inside = false;
+    public bool Inside { set { inside = value; } get { return inside; } }
 
     void Start()
     {
@@ -100,11 +101,6 @@ public class Business : MonoBehaviour
         }
     }
 
-    public void PlayerIsInside(bool isInside)
-    {
-        inside = isInside;
-    }
-
     void BuyRoom()
     {
         if (inside)
@@ -121,6 +117,7 @@ public class Business : MonoBehaviour
                         UIManager.main.GetColorAsString(InventoryItemType.Coins),
                         InventoryItemType.Coins
                     ));
+                    WorldManager.main.SleepTheNight();
                 }
                 else
                 {

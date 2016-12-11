@@ -21,6 +21,8 @@ public class DisplayMessageManager : MonoBehaviour
 
     bool allowNewMessage = true;
 
+    bool dequeueMessages = true;
+
     [SerializeField]
     private DisplayMessage displayMessagePrefab;
 
@@ -36,6 +38,13 @@ public class DisplayMessageManager : MonoBehaviour
 
     }
 
+
+    public void ClearQueue()
+    {
+        messageQueue.Clear();
+        allowNewMessage = false;
+        messageTimer = messageMinInterval;
+    }
 
     void Update()
     {
@@ -54,7 +63,12 @@ public class DisplayMessageManager : MonoBehaviour
         {
             if(messageQueue.Count > 0)
             {
-                DisplayMessage(messageQueue.Dequeue());
+                string newMessage = messageQueue.Dequeue();
+                DisplayMessage(newMessage);
+                if (!dequeueMessages)
+                {
+                    messageQueue.Enqueue(newMessage);
+                }
                 allowNewMessage = false;
                 messageTimer = messageMinInterval;
             }
@@ -72,6 +86,11 @@ public class DisplayMessageManager : MonoBehaviour
             messageList[i].MoveUp();
         }
         displayMessage.Show();
+    }
+
+    public void LoopQueue()
+    {
+        dequeueMessages = false;
     }
 
     public void ShowMessage(string message)
