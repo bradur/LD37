@@ -11,7 +11,7 @@ public enum Weapon
     Dagger
 }
 
-[RequireComponent(typeof(PolygonCollider2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
