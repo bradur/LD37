@@ -10,6 +10,11 @@ public class WorldManager : MonoBehaviour
     public static WorldManager main;
 
     [SerializeField]
+    private Material outMaterial;
+    [SerializeField]
+    private Material houseMaterial;
+
+    [SerializeField]
     private Transform projectileContainer;
     public Transform ProjectileContainer { get { return projectileContainer; } }
 
@@ -20,6 +25,8 @@ public class WorldManager : MonoBehaviour
     void Awake()
     {
         main = this;
+        outMaterial.SetFloat("_Darken", 0);
+        houseMaterial.SetFloat("_Transparency", 0);
     }
 
 }

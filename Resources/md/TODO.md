@@ -1,5 +1,6 @@
 [ ] Map
 [ ] Town
+[ ] NIGHT COMES AND YOU NEED THE ROOM
 [ ] Butcher Shop
 [ ] Blacksmith
 [ ] Inn
