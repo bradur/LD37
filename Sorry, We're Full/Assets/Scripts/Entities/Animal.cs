@@ -77,6 +77,7 @@ public class Animal : MonoBehaviour
     {
         if (collider2D.gameObject.tag == "Projectile")
         {
+           
             collider2D.transform.SetParent(transform, true);
             bool arrowsFound = false;
             foreach (InventoryItem item in lootItems)
@@ -96,7 +97,16 @@ public class Animal : MonoBehaviour
             if (!isDead) { 
                 GetHit(Weapon.Bow);
             }
+            if (!isDead)
+            {
+                MoveToRandomDirection();
+            }
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision2D)
+    {
+        MoveToRandomDirection();
     }
 
     void GetHit(Weapon weapon)
@@ -132,6 +142,7 @@ public class Animal : MonoBehaviour
 
     void MoveToRandomDirection()
     {
+        rb2D.drag = minDrag;
         currentMoveTime = rng.Range(moveTimeMin, moveTimeMax);
         rb2D.velocity = rng.Choose(possibleVectorDirections) * rng.Range(speedMin, speedMax);
         moving = true;
@@ -144,7 +155,6 @@ public class Animal : MonoBehaviour
             currentMoveTime -= Time.deltaTime;
             if (currentMoveTime <= 0.1f)
             {
-                rb2D.drag = minDrag;
                 MoveToRandomDirection();
             }
             else if (currentMoveTime <= 2.5f)
