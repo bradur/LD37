@@ -28,11 +28,13 @@ public class Butcher : MonoBehaviour
         {
             if (collision2D.gameObject.tag == "Player")
             {
-                string message = "<color=brown><b>BUTCHER</b></color>: ";
+                string messageStart = "<color=brown><b>BUTCHER</b></color>: ";
                 int countHides = InventoryManager.main.GetItemCount(InventoryItemType.Hide);
                 int countMeat = InventoryManager.main.GetItemCount(InventoryItemType.Meat);
+                string message = messageStart;
                 if (countHides <= 0 && countMeat <= 0)
                 {
+                    
                     message += string.Format(
                         "I will buy any <color=#{0}><b>{1}</b></color> or <color=#{2}><b>{3}</b></color> you have.",
                         UIManager.main.GetColorAsString(InventoryItemType.Meat),
@@ -41,6 +43,13 @@ public class Butcher : MonoBehaviour
                         InventoryItemType.Hide
                     );
                     UIManager.main.ShowMessage(message);
+                    message = messageStart;
+                    message += "Be sure to check the forest down south every day!";
+                    UIManager.main.ShowMessage(message);
+                    message = messageStart;
+                    message += "There are plenty of animals there to hunt.";
+                    UIManager.main.ShowMessage(message);
+
                 }
                 else
                 {

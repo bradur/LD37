@@ -86,12 +86,16 @@ public class Business : MonoBehaviour
                 BuyWeapon(currentWeapon, weaponPrice, blackSmith);
             } else
             {
-                UIManager.main.ShowMessage(string.Format(
-                    "<color=yellow><b>BLACKSMITH</b></color>: You already have the <color=#{0}><b>{1}</b></color>!",
-                    UIManager.main.GetColorAsString(InventoryItemType.Scimitar),
-                    InventoryItemType.Scimitar
-                ));
-                UIManager.main.ShowMessage("<color=yellow><b>BLACKSMITH</b></color>: That's the weapon best I can make.");
+                if(Vector2.Distance(transform.position, blackSmith.position) < minDistance)
+                {
+                    UIManager.main.ShowMessage(string.Format(
+                        "<color=yellow><b>BLACKSMITH</b></color>: You already have the <color=#{0}><b>{1}</b></color>!",
+                        UIManager.main.GetColorAsString(InventoryItemType.Scimitar),
+                        InventoryItemType.Scimitar
+                    ));
+                    UIManager.main.ShowMessage("<color=yellow><b>BLACKSMITH</b></color>: That's the weapon best I can make.");
+                }
+
             }
             
         }

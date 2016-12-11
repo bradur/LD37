@@ -66,7 +66,7 @@ public class WorldManager : MonoBehaviour
     [SerializeField]
     private GameObject[] animals;
 
-    int level = 0;
+    int level = 2;
     public int Level { get { return level; } }
 
     bool sleeping = false;
@@ -86,6 +86,9 @@ public class WorldManager : MonoBehaviour
 
     [SerializeField]
     private Transform bed;
+
+    KeyCode exitKey;
+    KeyCode restartKey;
 
     public void CustomerWasBeaten(Customer customer)
     {
@@ -117,12 +120,42 @@ public class WorldManager : MonoBehaviour
         TeleportTo(player, bed);
     }
 
+    public void GameOver(bool isVictory)
+    {
+        heDed = true;
+        UIManager.main.ClearQueue();
+        UIManager.main.LoopQueue();
+        UIManager.main.ShowMessage("<color=green><b>CONGRATULATIONS!</b></color>");
+        UIManager.main.ShowMessage(string.Format(
+            "You managed to stay {0} nights at the only room in the inn!",
+            level
+        ));
+        UIManager.main.ShowMessage("<color=green><b>THANK YOU FOR PLAYING!</b></color> \"Sorry, We're Full\"");
+        UIManager.main.ShowMessage("A Ludum Dare project by bradur");
+        UIManager.main.ShowMessage(string.Format(
+            "Press {0} to restart the game.",
+            restartKey
+        ));
+        UIManager.main.ShowMessage(string.Format(
+            "Press {0} to exit the game.",
+            exitKey
+        ));
+    }
+
     public void NewDay()
     {
-        player.GetComponent<PlayerController>().enabled = true;
-        animals[level].SetActive(true);
-        customers[level].SetActive(true);
         globalLight.intensity = lightIntensityCache;
+        if (level >= customers.Length)
+        {
+            GameOver(true);
+        }
+        else
+        {
+            player.GetComponent<PlayerController>().enabled = true;
+            animals[level].SetActive(true);
+            customers[level].SetActive(true);
+        }
+        
         //SpawnNextCustomer(level);
     }
 
@@ -201,8 +234,6 @@ public class WorldManager : MonoBehaviour
         SoundManager.main.PlaySound(SoundType.PlayerWasHit);
     }
 
-    KeyCode exitKey;
-    KeyCode restartKey;
 
     void Update()
     {

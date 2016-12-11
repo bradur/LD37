@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb2D;
     [SerializeField]
     private EnemyWeapon enemyWeapon;
+    public EnemyWeapon EnemyWeapon { get { return enemyWeapon; } }
 
     [SerializeField]
     [Range(0.5f, 3f)]
@@ -42,6 +43,10 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     [Range(0.1f, 5f)]
     private float speed = 2f;
+
+    [SerializeField]
+    [Range(0.1f, 8f)]
+    private float moveDrag = 2f;
 
     [SerializeField]
     [Range(0.1f, 3f)]
@@ -114,7 +119,7 @@ public class Enemy : MonoBehaviour
         WorldManager.main.CurrentFightingEnemy = this;
         UIManager.main.InitEnemyHealth(parentCustomer, this);
         target = newTarget;
-        rb2D.drag = 0.75f;
+        rb2D.drag = moveDrag;
         moveTimer = 0f;
         gameObject.tag = "Enemy";
     }

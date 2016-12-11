@@ -126,6 +126,7 @@ public class Animal : MonoBehaviour
         polygonCollider2D.isTrigger = true;
         rb2D.isKinematic = true;
         rb2D.velocity = Vector2.zero;
+        GetComponent<SpriteRenderer>().color = Color.red;
         moving = false;
     }
 

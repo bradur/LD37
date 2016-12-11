@@ -23,6 +23,7 @@ public class EnemyWeapon : MonoBehaviour
 
     [SerializeField]
     private InventoryItemType weapon;
+    public InventoryItemType Weapon { get { return weapon; } }
 
     [SerializeField]
     private Customer parentCustomer;

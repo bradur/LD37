@@ -19950,7 +19950,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 9
-  m_Sprite: {fileID: 21300008, guid: 37be4e10ab625864bb28abdb0ea1e066, type: 3}
+  m_Sprite: {fileID: 21300004, guid: eb6b4f7d288443543a6fc56e5efde24b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -19967,7 +19967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8.68
   backSpeed: 4.95
-  weapon: 8
+  weapon: 7
   parentCustomer: {fileID: 1026715204}
 --- !u!1 &600448584
 GameObject:
@@ -22925,6 +22925,62 @@ Transform:
   m_Father: {fileID: 2084525229}
   m_RootOrder: 50
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &708010842
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1755180191}
+    m_Modifications:
+    - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -4.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114742234703055624, guid: 57555d786f212814fbd6ee18421bafbe,
+        type: 2}
+      propertyPath: lootItems.Array.data[1].Count
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1623546277578396, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
+      propertyPath: m_Name
+      value: Deer (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &708010843 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe,
+    type: 2}
+  m_PrefabInternal: {fileID: 708010842}
 --- !u!1 &709047914
 GameObject:
   m_ObjectHideFlags: 0
@@ -26639,10 +26695,10 @@ MonoBehaviour:
     type: 2}
   ownedItems:
   - InventoryItemType: 3
-    Count: 15
+    Count: 0
     Sprite: {fileID: 21300020, guid: eb6b4f7d288443543a6fc56e5efde24b, type: 3}
   - InventoryItemType: 4
-    Count: 3
+    Count: 9
     Sprite: {fileID: 21300000, guid: eb6b4f7d288443543a6fc56e5efde24b, type: 3}
   uiOwnedItems: []
   inventoryContainer: {fileID: 1942354644}
@@ -29409,11 +29465,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -29.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -37.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4706330710560868, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
       propertyPath: m_LocalPosition.z
@@ -29442,7 +29498,7 @@ Prefab:
     - target: {fileID: 114742234703055624, guid: 57555d786f212814fbd6ee18421bafbe,
         type: 2}
       propertyPath: lootItems.Array.data[1].Count
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 57555d786f212814fbd6ee18421bafbe, type: 2}
@@ -32661,7 +32717,8 @@ MonoBehaviour:
   customerName: MEISTER
   randomMovement: {fileID: 1026715207}
   enemy: {fileID: 1026715205}
-  greeting: First come first serve, pal. I'll give up that room over my dead body!
+  greeting: You want my room? You're going to have to beat me.
+  greetingTaunt: My room. Not yours. Your weak kitchen knife isn't going to harm me.
 --- !u!114 &1026715205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32675,14 +32732,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentCustomer: {fileID: 1026715204}
   target: {fileID: 0}
-  health: 5
+  health: 15
   isFighting: 0
   rb2D: {fileID: 1026715206}
   enemyWeapon: {fileID: 600138247}
-  moveInterval: 1.696
+  moveInterval: 0.981
   minDistance: 1.3
-  speed: 1.36
-  hitInterval: 1.19
+  speed: 1.55
+  moveDrag: 1.39
+  hitInterval: 1.32
 --- !u!50 &1026715206
 Rigidbody2D:
   serializedVersion: 4
@@ -33352,7 +33410,8 @@ MonoBehaviour:
   customerName: REGINALD
   randomMovement: {fileID: 1036913764}
   enemy: {fileID: 1036913769}
-  greeting: Give you my room? Hah! You're going to have to fight me for it.
+  greeting: Looky looky! So are we doing this or what?
+  greetingTaunt: Give you my room? Hah! Go find a melee weapon and we can talk.
 --- !u!114 &1036913769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33373,6 +33432,7 @@ MonoBehaviour:
   moveInterval: 1.696
   minDistance: 1.3
   speed: 1.36
+  moveDrag: 2
   hitInterval: 1.19
 --- !u!1 &1040018984
 GameObject:
@@ -57585,11 +57645,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1755180190}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -29.2, y: -37.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1683545091}
+  - {fileID: 708010843}
   m_Father: {fileID: 1057969518}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -62619,7 +62680,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1891510459}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c2861bbe359dcc34e993e28e4819fcb5, type: 3}

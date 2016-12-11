@@ -38,6 +38,8 @@ public class Customer : MonoBehaviour
 
     [SerializeField]
     private string greeting;
+    [SerializeField]
+    private string greetingTaunt;
 
     private bool isFighting = false;
     public bool IsFighting { set { isFighting = value; } }
@@ -48,8 +50,14 @@ public class Customer : MonoBehaviour
         {
             if (collision2D.gameObject.tag == "Player")
             {
-                UIManager.main.ShowMessage(string.Format("<color=#{0}><b>{1}</b></color>: {2}", ColorText, customerName, greeting));
+                string message = greeting;
+                if((int)pc.EquippedWeapon < (int)enemy.EnemyWeapon.Weapon)
+                {
+                    message = greetingTaunt;
+                }
+                UIManager.main.ShowMessage(string.Format("<color=#{0}><b>{1}</b></color>: {2}", ColorText, customerName, message));
                 UIManager.main.ShowMessage(string.Format("Press {0} to fight <color=#{1}><b>{2}</b></color>!", keyStartFight, ColorText, customerName));
+                
             }
         }
     }
