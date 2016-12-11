@@ -26,6 +26,7 @@ public class Door : MonoBehaviour {
             
             houseMaterial.SetFloat("_Transparency", value);
             outsideMaterial.SetFloat("_Darken", value);
+            WorldManager.main.Player.GetComponent<Business>().PlayerIsInside(goingIn);
         }
     }
 

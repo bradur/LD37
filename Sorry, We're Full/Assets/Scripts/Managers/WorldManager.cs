@@ -19,8 +19,21 @@ public class WorldManager : MonoBehaviour
     public Transform ProjectileContainer { get { return projectileContainer; } }
 
     [SerializeField]
+    private InnKeeperTable innKeeper;
+
+    [SerializeField]
     private Transform player;
     public Transform Player { get { return player; } }
+
+    private bool customerHasBeenBeat = false;
+    public bool CustomerHasBeenBeat { get { return customerHasBeenBeat; } }
+
+    public void CustomerWasBeaten()
+    {
+        UIManager.main.ShowMessage("You beat the other customer! You can rent the room now!");
+        customerHasBeenBeat = true;
+        innKeeper.IToldYou = 0;
+    }
 
     void Awake()
     {

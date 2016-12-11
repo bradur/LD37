@@ -17,7 +17,8 @@ public enum Action
     SellHide,
     SellMeat,
     BuyWeapon,
-    BuyArrows
+    BuyArrows,
+    RentRoom
 }
 
 public class KeyManager : MonoBehaviour {

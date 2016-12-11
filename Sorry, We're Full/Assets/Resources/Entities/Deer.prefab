@@ -153,9 +153,9 @@ MonoBehaviour:
   - InventoryItemType: 1
     Count: 1
     Sprite: {fileID: 21300024, guid: eb6b4f7d288443543a6fc56e5efde24b, type: 3}
-  - InventoryItemType: 3
-    Count: 5
-    Sprite: {fileID: 21300020, guid: eb6b4f7d288443543a6fc56e5efde24b, type: 3}
+  - InventoryItemType: 2
+    Count: 1
+    Sprite: {fileID: 21300022, guid: eb6b4f7d288443543a6fc56e5efde24b, type: 3}
   speedMax: 2.61
   speedMin: 2
   animator: {fileID: 95875980693206438}
