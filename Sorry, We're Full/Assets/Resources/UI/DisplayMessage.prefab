@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9632353, g: 0.9632353, b: 0.9632353, a: 0.053}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.203}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -127,7 +127,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 9c39e6be04a79c9468607b60e238f33b, type: 3}
+    m_Font: {fileID: 12800000, guid: a4d18ce382d830442a11ace775f0a97d, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0

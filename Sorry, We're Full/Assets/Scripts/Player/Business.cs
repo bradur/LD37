@@ -127,6 +127,7 @@ public class Business : MonoBehaviour
         {
             InventoryManager.main.AddToCount(InventoryItemType.Coins, -price);
             InventoryManager.main.AddToCount(type, 1);
+            SoundManager.main.PlaySound(SoundType.BuyItem);
         }
         else
         {
@@ -160,6 +161,7 @@ public class Business : MonoBehaviour
                     InventoryItemType.Coins
                 ));
                 InventoryManager.main.AddToCount(InventoryItemType.Coins, price);
+                SoundManager.main.PlaySound(SoundType.SellItem);
             }
             else
             {
