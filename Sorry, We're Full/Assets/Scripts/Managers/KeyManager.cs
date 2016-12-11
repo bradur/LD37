@@ -13,7 +13,11 @@ public enum Action
     Buy,
     Exit,
     Confirm,
-    Cancel
+    Cancel,
+    SellHide,
+    SellMeat,
+    BuyWeapon,
+    BuyArrows
 }
 
 public class KeyManager : MonoBehaviour {

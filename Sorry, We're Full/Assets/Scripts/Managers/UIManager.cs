@@ -52,19 +52,19 @@ public class UIManager : MonoBehaviour {
         ));
     }
 
-    string GetColorAsString(AnimalType animalType)
+    public string GetColorAsString(AnimalType animalType)
     {
         Color32 animalColor = GetAnimalColor(animalType);
         return string.Format("{0:X2}{1:X2}{2:X2}", animalColor.r, animalColor.g, animalColor.b);
     }
 
-    string GetColorAsString(Weapon weapon) {
+    public string GetColorAsString(Weapon weapon) {
         Color32 weaponColor = GetWeaponColor(weapon);
         return string.Format("{0:X2}{1:X2}{2:X2}", weaponColor.r, weaponColor.g, weaponColor.b);
     }
 
 
-    string GetColorAsString(InventoryItemType weapon)
+    public string GetColorAsString(InventoryItemType weapon)
     {
         Color32 itemColor = GetInventoryItemColor(weapon);
         return string.Format("{0:X2}{1:X2}{2:X2}", itemColor.r, itemColor.g, itemColor.b);

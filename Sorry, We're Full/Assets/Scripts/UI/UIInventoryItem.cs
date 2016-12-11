@@ -57,4 +57,9 @@ public class UIInventoryItem : MonoBehaviour {
         }
     }
 
+    public void Kill()
+    {
+        Destroy(gameObject);
+    }
+
 }
