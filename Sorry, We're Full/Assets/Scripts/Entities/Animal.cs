@@ -95,7 +95,7 @@ public class Animal : MonoBehaviour
             }
 
             if (!isDead) { 
-                GetHit(Weapon.Bow);
+                GetHit(InventoryItemType.Bow);
             }
             if (!isDead)
             {
@@ -109,7 +109,7 @@ public class Animal : MonoBehaviour
         MoveToRandomDirection();
     }
 
-    void GetHit(Weapon weapon)
+    void GetHit(InventoryItemType weapon)
     {
         health -= 1;
         if (health < 1)
@@ -118,7 +118,7 @@ public class Animal : MonoBehaviour
         }
     }
 
-    void StartDying(Weapon weapon)
+    void StartDying(InventoryItemType weapon)
     {
         UIManager.main.ShowMessage(animalType, weapon, numProjectiles);
         SoundManager.main.PlaySound(SoundType.AnimalDie);

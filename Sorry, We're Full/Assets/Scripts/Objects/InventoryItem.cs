@@ -9,7 +9,11 @@ public enum InventoryItemType
     Hide,
     Meat,
     Coins,
-    Arrows
+    Arrows,
+    Bow,
+    Dagger,
+    ShortSword,
+    Scimitar
 }
 
 [System.Serializable]

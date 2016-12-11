@@ -33,7 +33,13 @@ public class Butcher : MonoBehaviour
                 int countMeat = InventoryManager.main.GetItemCount(InventoryItemType.Meat);
                 if (countHides <= 0 && countMeat <= 0)
                 {
-                    message += "I will buy your meat and hides.";
+                    message += string.Format(
+                        "I will buy any <color=#{0}><b>{1}</b></color> or <color=#{2}><b>{3}</b></color> you have.",
+                        UIManager.main.GetColorAsString(InventoryItemType.Meat),
+                        InventoryItemType.Meat,
+                        UIManager.main.GetColorAsString(InventoryItemType.Hide),
+                        InventoryItemType.Hide
+                    );
                     UIManager.main.ShowMessage(message);
                 }
                 else
@@ -41,10 +47,11 @@ public class Butcher : MonoBehaviour
                     if (countHides > 0)
                     {
                         string hides = string.Format(
-                            "{0}You have {1} <color=#{2}><b>HIDE</b></color>{3}. Press {4} to sell. ",
+                            "{0}You have {1} <color=#{2}><b>{3}</b></color>{4}. Press {5} to sell. ",
                             message,
                             countHides,
                             UIManager.main.GetColorAsString(InventoryItemType.Hide),
+                            InventoryItemType.Hide,
                             countHides > 1 ? "s" : "",
                             sellHide
                         );
@@ -53,10 +60,11 @@ public class Butcher : MonoBehaviour
                     if (countMeat > 0)
                     {
                         string meat = string.Format(
-                            "{0}You have {1} <color=#{2}><b>MEAT</b></color>. Press {3} to sell. ",
+                            "{0}You have {1} <color=#{2}><b>{3}</b></color>. Press {4} to sell. ",
                             message,
                             countMeat,
-                            UIManager.main.GetColorAsString(InventoryItemType.Hide),
+                            UIManager.main.GetColorAsString(InventoryItemType.Meat),
+                            InventoryItemType.Meat,
                             sellMeat
                         );
                         UIManager.main.ShowMessage(meat);

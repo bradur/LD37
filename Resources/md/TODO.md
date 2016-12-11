@@ -1,10 +1,10 @@
-[ ] Map
-[ ] Town
+[x] Map (not mini-map)
+[x] Town
 [ ] NIGHT COMES AND YOU NEED THE ROOM
-[ ] Butcher Shop
+[x] Butcher Shop
 [ ] Blacksmith
-[ ] Inn
-[ ] Dialogue
+[x] Inn
+[~] Dialogue
 [ ] At least a couple customer fights
 [x] Fix annoying overlaying texts
 [x] Fix arrow shoot direction resetting when not moving

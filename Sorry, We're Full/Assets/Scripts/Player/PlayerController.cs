@@ -4,13 +4,6 @@
 
 using UnityEngine;
 
-public enum Weapon
-{
-    None,
-    Bow,
-    Dagger
-}
-
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -29,7 +22,11 @@ public class PlayerController : MonoBehaviour
     private KeyCode hitKey;
 
     [SerializeField]
-    private Weapon currentWeapon = Weapon.None;
+    private InventoryItemType currentWeapon = InventoryItemType.Bow;
+    public InventoryItemType CurrentWeapon { get { return currentWeapon; } }
+
+    private InventoryItemType equippedWeapon = InventoryItemType.Bow;
+    public InventoryItemType EquippedWeapon { get { return equippedWeapon; }  set { equippedWeapon = value; } }
 
     Vector3 direction;
     Vector3 arrowDirection;
@@ -49,14 +46,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (currentWeapon == Weapon.Bow)
+        if (currentWeapon == InventoryItemType.Bow)
         {
             if (Input.GetKeyUp(shootKey))
             {
                 Shoot();
             }
         }
-        else if (currentWeapon != Weapon.None)
+        else if (equippedWeapon != InventoryItemType.Bow)
         {
             if (Input.GetKeyUp(hitKey))
             {

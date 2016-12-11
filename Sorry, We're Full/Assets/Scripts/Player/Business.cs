@@ -38,6 +38,12 @@ public class Business : MonoBehaviour
     [SerializeField]
     [Range(1, 5)]
     private int arrowPrice = 2;
+    public int ArrowPrice { get { return arrowPrice; } }
+
+    [SerializeField]
+    [Range(1, 5)]
+    private int weaponPrice = 5;
+    public int WeaponPrice { get { return weaponPrice; } }
 
     [SerializeField]
     [Range(5, 10)]
@@ -69,6 +75,24 @@ public class Business : MonoBehaviour
         if (Input.GetKeyUp(buyArrows))
         {
             Buy(InventoryItemType.Arrows, arrowPrice, blackSmith);
+        }
+        if (Input.GetKeyUp(buyWeapon))
+        {
+            InventoryItemType currentWeapon = WorldManager.main.Player.GetComponent<PlayerController>().EquippedWeapon;
+            if (currentWeapon != InventoryItemType.Scimitar)
+            {
+                currentWeapon = (InventoryItemType)(int)currentWeapon + 1;
+                BuyWeapon(currentWeapon, weaponPrice, blackSmith);
+            } else
+            {
+                UIManager.main.ShowMessage(string.Format(
+                    "<color=yellow><b>BLACKSMITH</b></color>: You already have the <color=#{0}><b>{1}</b></color>!",
+                    UIManager.main.GetColorAsString(InventoryItemType.Scimitar),
+                    InventoryItemType.Scimitar
+                ));
+                UIManager.main.ShowMessage("<color=yellow><b>BLACKSMITH</b></color>: That's the weapon best I can make.");
+            }
+            
         }
         if (Input.GetKeyUp(rentRoom))
         {
@@ -120,41 +144,79 @@ public class Business : MonoBehaviour
         }
     }
 
+    void BuyWeapon(InventoryItemType type, int price, Transform vendor)
+    {
+
+        if (Vector2.Distance(transform.position, vendor.transform.position) < minDistance)
+        {
+            int coinCount = InventoryManager.main.GetItemCount(InventoryItemType.Coins);
+            if (coinCount >= price)
+            {
+                InventoryManager.main.AddToCount(InventoryItemType.Coins, -price);
+                GetComponent<PlayerController>().EquippedWeapon = type;
+                UIManager.main.EquipNewWeapon(type);
+                SoundManager.main.PlaySound(SoundType.EquipItem);
+                UIManager.main.ShowMessage(string.Format(
+                    "You bought a <color=#{0}><b>{1}</b></color> with {2} <color=#{3}><b>{4}</b></color>!.",
+                    UIManager.main.GetColorAsString(type),
+                    type,
+                    price,
+                    UIManager.main.GetColorAsString(InventoryItemType.Coins),
+                    InventoryItemType.Coins
+                ));
+            }
+            else
+            {
+                UIManager.main.ShowMessage(string.Format(
+                    "You don't have enough <color=#{0}><b>{1}</b></color> to buy a <color=#{2}><b>{3}</b></color> ({4}).",
+                    UIManager.main.GetColorAsString(InventoryItemType.Coins),
+                    InventoryItemType.Coins,
+                    UIManager.main.GetColorAsString(type),
+                    type,
+                    price
+                ));
+            }
+        }
+    }
+
     void Buy(InventoryItemType type, int price, Transform vendor)
     {
-        int coinCount = InventoryManager.main.GetItemCount(InventoryItemType.Coins);
-        if (coinCount >= price)
+        
+        if (Vector2.Distance(transform.position, vendor.transform.position) < minDistance)
         {
-            InventoryManager.main.AddToCount(InventoryItemType.Coins, -price);
-            InventoryManager.main.AddToCount(type, 1);
-            SoundManager.main.PlaySound(SoundType.BuyItem);
-        }
-        else
-        {
-            UIManager.main.ShowMessage(string.Format(
-                "You don't have enough <color=#{0}><b>{1}</b></color> to buy <color=#{2}><b>{3}</b></color> ({4}).",
-                UIManager.main.GetColorAsString(InventoryItemType.Coins),
-                InventoryItemType.Coins,
-                UIManager.main.GetInventoryItemColor(type),
-                type,
-                price
-            ));
+            int coinCount = InventoryManager.main.GetItemCount(InventoryItemType.Coins);
+            if (coinCount >= price)
+            {
+                InventoryManager.main.AddToCount(InventoryItemType.Coins, -price);
+                InventoryManager.main.AddToCount(type, 1);
+                SoundManager.main.PlaySound(SoundType.BuyItem);
+            }
+            else
+            {
+                UIManager.main.ShowMessage(string.Format(
+                    "You don't have enough <color=#{0}><b>{1}</b></color> to buy <color=#{2}><b>{3}</b></color> ({4}).",
+                    UIManager.main.GetColorAsString(InventoryItemType.Coins),
+                    InventoryItemType.Coins,
+                    UIManager.main.GetColorAsString(type),
+                    type,
+                    price
+                ));
+            }
         }
     }
 
     void Sell(InventoryItemType type, int price, Transform vendor)
     {
-
-        int itemCount = InventoryManager.main.GetItemCount(type);
         if (Vector2.Distance(transform.position, vendor.transform.position) < minDistance)
         {
+            int itemCount = InventoryManager.main.GetItemCount(type);
             if (itemCount > 0)
             {
 
                 InventoryManager.main.AddToCount(type, -1);
                 UIManager.main.ShowMessage(string.Format(
                     "You sold a <color=#{0}><b>{1}</b></color> for {2} <color=#{3}><b>{4}</b></color>.",
-                    UIManager.main.GetInventoryItemColor(type),
+                    UIManager.main.GetColorAsString(type),
                     type,
                     price,
                     UIManager.main.GetColorAsString(InventoryItemType.Coins),
@@ -167,7 +229,7 @@ public class Business : MonoBehaviour
             {
                 UIManager.main.ShowMessage(string.Format(
                     "You don't have any <color=#{0}><b>{1}</b></color>{2}.",
-                    UIManager.main.GetInventoryItemColor(type),
+                    UIManager.main.GetColorAsString(type),
                     type,
                     type == InventoryItemType.Hide ? "s" : ""
                 ));

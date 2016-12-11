@@ -23,17 +23,22 @@ public class UIManager : MonoBehaviour {
     private List<AnimalColor> animalColors = new List<AnimalColor>();
 
     [SerializeField]
-    private List<WeaponColor> weaponColors = new List<WeaponColor>();
-
-    [SerializeField]
     private List<InventoryItemColor> itemColors = new List<InventoryItemColor>();
 
     [SerializeField]
     private DisplayMessageManager displayMessageManager;
 
+    [SerializeField]
+    private DisplayWeaponManager displayWeaponManager;
+
     void Awake()
     {
         main = this;
+    }
+
+    public void EquipNewWeapon(InventoryItemType weapon)
+    {
+        displayWeaponManager.EquipNewWeapon(weapon);
     }
 
     public void ShowMessage(string message)
@@ -41,10 +46,10 @@ public class UIManager : MonoBehaviour {
         displayMessageManager.ShowMessage(message);
     }
 
-    public void ShowMessage(AnimalType animal, Weapon weapon, int projectileCount)
+    public void ShowMessage(AnimalType animal, InventoryItemType weapon, int projectileCount)
     {
         ShowMessage(string.Format(
-            "You killed <color=#{0}><b>{1}</b></color> with your <color=#{2}><b>{3}</b></color>!",
+            "You killed a <color=#{0}><b>{1}</b></color> with your <color=#{2}><b>{3}</b></color>!",
             GetColorAsString(animal),
             animal,
             GetColorAsString(weapon),
@@ -57,12 +62,6 @@ public class UIManager : MonoBehaviour {
         Color32 animalColor = GetAnimalColor(animalType);
         return string.Format("{0:X2}{1:X2}{2:X2}", animalColor.r, animalColor.g, animalColor.b);
     }
-
-    public string GetColorAsString(Weapon weapon) {
-        Color32 weaponColor = GetWeaponColor(weapon);
-        return string.Format("{0:X2}{1:X2}{2:X2}", weaponColor.r, weaponColor.g, weaponColor.b);
-    }
-
 
     public string GetColorAsString(InventoryItemType weapon)
     {
@@ -83,7 +82,7 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    public void ShowMessage(Weapon weapon, MessageType messageType)
+    public void ShowMessage(InventoryItemType weapon, MessageType messageType)
     {
         if (messageType == MessageType.NoAmmo)
         {
@@ -120,30 +119,13 @@ public class UIManager : MonoBehaviour {
         return Color.white;
     }
 
-    public Color GetWeaponColor(Weapon weapon)
-    {
-        foreach (WeaponColor weaponColor in weaponColors)
-        {
-            if (weaponColor.Weapon == weapon)
-            {
-                return weaponColor.Color;
-            }
-        }
-        return Color.white;
-    }
+
 }
 
 [System.Serializable]
 public class AnimalColor: System.Object
 {
     public AnimalType Animal;
-    public Color Color;
-}
-
-[System.Serializable]
-public class WeaponColor : System.Object
-{
-    public Weapon Weapon;
     public Color Color;
 }
 

@@ -28,6 +28,10 @@ public class WorldManager : MonoBehaviour
     private bool customerHasBeenBeat = false;
     public bool CustomerHasBeenBeat { get { return customerHasBeenBeat; } }
 
+    [SerializeField]
+    private Business business;
+    public Business Business { get { return business; } }
+
     public void CustomerWasBeaten()
     {
         UIManager.main.ShowMessage("You beat the other customer! You can rent the room now!");

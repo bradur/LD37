@@ -27,6 +27,8 @@ public class DisplayMessageManager : MonoBehaviour
     [SerializeField]
     private Transform displayMessageContainer;
 
+    private KeyCode keyConfirm = KeyCode.None;
+
     private List<DisplayMessage> messageList = new List<DisplayMessage>();
 
     void Start()
@@ -37,6 +39,9 @@ public class DisplayMessageManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyUp(keyConfirm)) {
+            allowNewMessage = true;
+        }
         if (!allowNewMessage)
         {
             messageTimer -= Time.deltaTime;
@@ -54,6 +59,7 @@ public class DisplayMessageManager : MonoBehaviour
                 messageTimer = messageMinInterval;
             }
         }
+        
     }
 
     void DisplayMessage(string message)
@@ -70,6 +76,10 @@ public class DisplayMessageManager : MonoBehaviour
 
     public void ShowMessage(string message)
     {
+        if(keyConfirm == KeyCode.None)
+        {
+            keyConfirm = KeyManager.main.GetKey(Action.Confirm);
+        }
         messageQueue.Enqueue(message);
     }
 
