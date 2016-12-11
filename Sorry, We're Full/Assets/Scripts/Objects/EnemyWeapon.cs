@@ -39,6 +39,7 @@ public class EnemyWeapon : MonoBehaviour
     {
         if (!isSwinging && !isBackSwinging)
         {
+            GetComponent<BoxCollider2D>().enabled = true;
             Vector2 direction = transform.position - position;
             float angle = Mathf.Atan2(position.y, position.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -54,6 +55,7 @@ public class EnemyWeapon : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
             if(Vector2.Distance(transform.position, targetPosition) <= 0.2f)
             {
+                GetComponent<BoxCollider2D>().enabled = false;
                 isSwinging = false;
                 isBackSwinging = true;
             }

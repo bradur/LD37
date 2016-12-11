@@ -125,12 +125,21 @@ public class WorldManager : MonoBehaviour
         heDed = true;
         UIManager.main.ClearQueue();
         UIManager.main.LoopQueue();
-        UIManager.main.ShowMessage("<color=green><b>CONGRATULATIONS!</b></color>");
+        if (isVictory)
+        {
+            UIManager.main.ShowMessage("<color=green><b>THE END</b></color>");
+            UIManager.main.ShowMessage("<color=green><b>CONGRATULATIONS!</b></color>");
+        }
+        else
+        {
+            UIManager.main.ShowMessage("<color=red><b>GAME OVER!</b></color>");
+            UIManager.main.ShowMessage("<color=yellow><b>NICE TRY!</b></color>");
+        }
         UIManager.main.ShowMessage(string.Format(
             "You managed to stay {0} nights at the only room in the inn!",
             level
         ));
-        UIManager.main.ShowMessage("<color=green><b>THANK YOU FOR PLAYING!</b></color> \"Sorry, We're Full\"");
+        UIManager.main.ShowMessage("<color=yellow><b>THANK YOU FOR PLAYING!</b></color> \"Sorry, We're Full\"");
         UIManager.main.ShowMessage("A Ludum Dare project by bradur");
         UIManager.main.ShowMessage(string.Format(
             "Press {0} to restart the game.",
@@ -277,12 +286,7 @@ public class WorldManager : MonoBehaviour
         UIManager.main.ClearQueue();
         UIManager.main.LoopQueue();
         UIManager.main.ShowMessage("<color=red><b>You died!</b></color>");
-        UIManager.main.ShowMessage(string.Format(
-            "Press {0} to start again.", restartKey
-        ));
-        UIManager.main.ShowMessage(string.Format(
-            "Press {0} to exit the game.", exitKey
-        ));
+        GameOver(false);
     }
     void Awake()
     {

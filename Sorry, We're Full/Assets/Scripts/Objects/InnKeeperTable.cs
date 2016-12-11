@@ -33,7 +33,8 @@ public class InnKeeperTable : MonoBehaviour
                 {
                     if (iToldYou == 0)
                     {
-                        if(WorldManager.main.Level == 0) { 
+                        if (WorldManager.main.Level == 0)
+                        {
                             UIManager.main.ShowMessage(string.Format(
                                 "<color=green><b>INNKEEPER</b></color>: We only have one room, {0} <color=#{1}><b>{2}</b></color> for a night.",
                                 WorldManager.main.Player.GetComponent<Business>().RoomPrice,
@@ -43,19 +44,30 @@ public class InnKeeperTable : MonoBehaviour
                             UIManager.main.ShowMessage(string.Format(
                                 "<color=green><b>INNKEEPER</b></color>: But it's taken!"
                             ));
-                        } else
+                        }
+                        else if (WorldManager.main.Level == 1)
                         {
                             UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: Good morning!");
                             UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: A customer came during the night and rented the room.");
-                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: I'm sorry, but rules are rules!.");
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: I'm sorry, but rules are rules!");
                             UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: Looks like you're going to have to make \"a deal\" again.");
                             UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: I think the gentleman is outside, near the arena.");
+                        }
+                        else
+                        {
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: Mornin'.");
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: Uh, the room was rented again last night...");
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: I think I saw the new guy hanging out behind the house.");
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: Looks awfully familiar but I can't put my finger on it...");
                         }
                         iToldYou++;
                     }
                     else if (iToldYou == 1)
                     {
-                        UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: You again?");
+                        if (WorldManager.main.Level == 0)
+                        {
+                            UIManager.main.ShowMessage("<color=green><b>INNKEEPER</b></color>: You again?");
+                        }
                         UIManager.main.ShowMessage(string.Format(
                             "<color=green><b>INNKEEPER</b></color>: I already told you, the room is {0} <color=#{1}><b>{2}</b></color> for a night.",
                             WorldManager.main.Player.GetComponent<Business>().RoomPrice,

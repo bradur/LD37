@@ -122,12 +122,12 @@ public class UIManager : MonoBehaviour {
     {
         if (messageType == MessageType.ItemCountUpdate)
         {
-            ShowMessage(string.Format(
+            /*ShowMessage(string.Format(
                 "You now have {0} <color=#{1}><b>{2}</b></color>!",
                 value,
                 GetColorAsString(inventoryItemType),
                 inventoryItemType
-            ));
+            ));*/
         }
     }
 

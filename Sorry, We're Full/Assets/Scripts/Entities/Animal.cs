@@ -22,7 +22,7 @@ public class Animal : MonoBehaviour
     public AnimalType AnimalType { get { return animalType; } }
 
     [SerializeField]
-    [Range(1, 5)]
+    [Range(1,25)]
     private int health = 3;
 
     [SerializeField]
@@ -60,6 +60,7 @@ public class Animal : MonoBehaviour
 
     void Start()
     {
+        animator.enabled = false;
         rb2D = GetComponent<Rigidbody2D>();
         polygonCollider2D = GetComponent<PolygonCollider2D>();
         rng = new RandomWrapper();
@@ -120,13 +121,14 @@ public class Animal : MonoBehaviour
 
     void StartDying(InventoryItemType weapon)
     {
+        animator.enabled = true;
         UIManager.main.ShowMessage(animalType, weapon, numProjectiles);
         SoundManager.main.PlaySound(SoundType.AnimalDie);
         isDead = true;
         polygonCollider2D.isTrigger = true;
         rb2D.isKinematic = true;
         rb2D.velocity = Vector2.zero;
-        GetComponent<SpriteRenderer>().color = Color.red;
+        
         moving = false;
     }
 

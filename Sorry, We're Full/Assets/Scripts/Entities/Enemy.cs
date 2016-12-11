@@ -23,13 +23,18 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private bool isFighting = false;
     public bool IsFighting { set { isFighting = value; } }
-    private bool isMoving = true;
+    private bool isMoving = false;
 
     [SerializeField]
     private Rigidbody2D rb2D;
     [SerializeField]
     private EnemyWeapon enemyWeapon;
     public EnemyWeapon EnemyWeapon { get { return enemyWeapon; } }
+
+    [SerializeField]
+    [Range(1f, 6f)]
+    private float initialWait = 3f;
+    private float initialTimer;
 
     [SerializeField]
     [Range(0.5f, 3f)]
@@ -121,6 +126,7 @@ public class Enemy : MonoBehaviour
         target = newTarget;
         rb2D.drag = moveDrag;
         moveTimer = 0f;
+        initialTimer = initialWait;
         gameObject.tag = "Enemy";
     }
 
@@ -145,21 +151,32 @@ public class Enemy : MonoBehaviour
         if (isFighting)
         {
 
-            moveTimer -= Time.deltaTime;
-            if (moveTimer <= 0.01f)
+            if (isMoving)
             {
-                MoveTowards();
-                moveTimer = moveInterval;
-            }
-            hitTimer -= Time.deltaTime;
-
-            if (hitTimer <= 0.01f)
-            {
-                if (Vector2.Distance(transform.position, target.position) <= minDistance)
+                moveTimer -= Time.deltaTime;
+                if (moveTimer <= 0.01f)
                 {
-                    AttemptToHit();
+                    MoveTowards();
+                    moveTimer = moveInterval;
                 }
-                hitTimer = hitInterval;
+                hitTimer -= Time.deltaTime;
+
+                if (hitTimer <= 0.01f)
+                {
+                    if (Vector2.Distance(transform.position, target.position) <= minDistance)
+                    {
+                        AttemptToHit();
+                    }
+                    hitTimer = hitInterval;
+                }
+            }
+            else
+            {
+                initialTimer -= Time.deltaTime;
+                if (initialTimer <= 0.01f)
+                {
+                    isMoving = true;
+                }
             }
         }
     }

@@ -30,7 +30,7 @@ Material:
       second: 0
     - first:
         name: _Transparency
-      second: 0
+      second: 1
     m_Colors:
     - first:
         name: _Color

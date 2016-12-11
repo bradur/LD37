@@ -46,6 +46,7 @@ public class DisplayPlayerHealth : MonoBehaviour {
         health = enemy.Health;
         maxHealth = enemy.Health;
         txtHealth.text = health.ToString();
+        txtHealth.color = goodHealth;
     }
 
     public void GainLevel(int level)
