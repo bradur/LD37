@@ -42,8 +42,15 @@ public class DisplayMessageManager : MonoBehaviour
     public void ClearQueue()
     {
         messageQueue.Clear();
-        allowNewMessage = false;
-        messageTimer = messageMinInterval;
+        for (int i = messageList.Count - 1; i >= 0; i--)
+        {
+            if (messageList[i] != null) {
+                messageList[i].Die();
+            }
+        }
+        messageList.Clear();
+        allowNewMessage = true;
+        messageTimer = 0f;
     }
 
     void Update()
@@ -88,9 +95,9 @@ public class DisplayMessageManager : MonoBehaviour
         displayMessage.Show();
     }
 
-    public void LoopQueue()
+    public void LoopQueue(bool start)
     {
-        dequeueMessages = false;
+        dequeueMessages = start;
     }
 
     public void ShowMessage(string message)

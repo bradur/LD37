@@ -27,7 +27,7 @@ Material:
       second: 0
     - first:
         name: _Darken
-      second: 1
+      second: 0
     m_Colors:
     - first:
         name: _Color

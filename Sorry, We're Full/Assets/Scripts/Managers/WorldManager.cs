@@ -11,6 +11,10 @@ public class WorldManager : MonoBehaviour
     public static WorldManager main;
 
     [SerializeField]
+    private AudioSource themeMusic;
+    private bool themeToggle = true;
+
+    [SerializeField]
     private Material outMaterial;
     [SerializeField]
     private Material houseMaterial;
@@ -66,10 +70,12 @@ public class WorldManager : MonoBehaviour
     [SerializeField]
     private GameObject[] animals;
 
-    int level = 2;
+    int level = 0;
     public int Level { get { return level; } }
 
     bool sleeping = false;
+
+    bool inMenu = false;
 
     [Range(0.5f, 5f)]
     [SerializeField]
@@ -88,7 +94,10 @@ public class WorldManager : MonoBehaviour
     private Transform bed;
 
     KeyCode exitKey;
+    KeyCode exitConfirmKey;
     KeyCode restartKey;
+    KeyCode soundToggle;
+    KeyCode musicToggle;
 
     public void CustomerWasBeaten(Customer customer)
     {
@@ -139,7 +148,8 @@ public class WorldManager : MonoBehaviour
             "You managed to stay {0} nights at the only room in the inn!",
             level
         ));
-        UIManager.main.ShowMessage("<color=yellow><b>THANK YOU FOR PLAYING!</b></color> \"Sorry, We're Full\"");
+        UIManager.main.ShowMessage("<color=yellow><b>THANK YOU FOR PLAYING!</b></color>");
+        UIManager.main.ShowMessage("\"Sorry, We're Full\"");
         UIManager.main.ShowMessage("A Ludum Dare project by bradur");
         UIManager.main.ShowMessage(string.Format(
             "Press {0} to restart the game.",
@@ -153,6 +163,14 @@ public class WorldManager : MonoBehaviour
 
     public void NewDay()
     {
+        if (exitKey == KeyCode.None)
+        {
+            restartKey = KeyManager.main.GetKey(Action.RestartGame);
+            exitKey = KeyManager.main.GetKey(Action.Exit);
+            exitConfirmKey = KeyManager.main.GetKey(Action.ExitConfirm);
+            soundToggle = KeyManager.main.GetKey(Action.ToggleSfx);
+            musicToggle = KeyManager.main.GetKey(Action.ToggleMusic);
+        }
         globalLight.intensity = lightIntensityCache;
         if (level >= customers.Length)
         {
@@ -163,8 +181,16 @@ public class WorldManager : MonoBehaviour
             player.GetComponent<PlayerController>().enabled = true;
             animals[level].SetActive(true);
             customers[level].SetActive(true);
+            if (level == 0)
+            {
+                UIManager.main.LoopQueue();
+                UIManager.main.ShowMessage("Welcome to \"I'm Sorry, We're Full\", a Ludum Dare #37 game.");
+                UIManager.main.ShowMessage("ARROW KEYS / WASD to move.");
+                UIManager.main.ShowMessage("Tap SPACE to fast-skip dialogue.");
+                UIManager.main.ShowMessage("Go inside the inn first.");
+            }
         }
-        
+
         //SpawnNextCustomer(level);
     }
 
@@ -208,11 +234,6 @@ public class WorldManager : MonoBehaviour
 
     public void PlayerWasHit(Customer customer, InventoryItemType weapon)
     {
-        if (exitKey == KeyCode.None)
-        {
-            restartKey = KeyManager.main.GetKey(Action.RestartGame);
-            exitKey = KeyManager.main.GetKey(Action.Exit);
-        }
         int healthLoss = 0;
         if (weapon == InventoryItemType.Dagger)
         {
@@ -246,6 +267,31 @@ public class WorldManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyUp(soundToggle))
+        {
+            bool onOff = SoundManager.main.Toggle();
+            UIManager.main.ShowMessage(string.Format(
+                "Sounds are now: <color={0}><b>{1}</b></color>",
+                onOff ? "lime" : "red",
+                onOff ? "ON" : "OFF"
+            ));
+        }
+        if (Input.GetKeyUp(musicToggle))
+        {
+            themeToggle = !themeToggle;
+            UIManager.main.ShowMessage(string.Format(
+                "Music is now: <color={0}><b>{1}</b></color>",
+                themeToggle ? "lime" : "red",
+                themeToggle ? "ON" : "OFF"
+            ));
+            if (!themeToggle)
+            {
+                themeMusic.Pause();
+            } else
+            {
+                themeMusic.Play();
+            }
+        }
         if (sleeping)
         {
             sleepTimer -= Time.deltaTime;
@@ -257,6 +303,7 @@ public class WorldManager : MonoBehaviour
                 WakeUp();
             }
         }
+
         if (heDed)
         {
             if (Input.GetKeyUp(exitKey))
@@ -266,6 +313,59 @@ public class WorldManager : MonoBehaviour
             else if (Input.GetKeyUp(restartKey))
             {
                 RestartGame();
+            }
+        }
+        else
+        {
+            if (inMenu)
+            {
+                if (Input.GetKeyUp(exitConfirmKey))
+                {
+                    Application.Quit();
+                }
+                else if (Input.GetKeyUp(restartKey))
+                {
+                    SceneManager.LoadScene("main");
+                }
+                else if (Input.GetKeyUp(exitKey))
+                {
+                    inMenu = false;
+                    globalLight.intensity = lightIntensityCache;
+                    if (currentFightingEnemy != null)
+                    {
+                        currentFightingEnemy.EnemyWeapon.enabled = true;
+                        currentFightingEnemy.enabled = true;
+                    }
+                    player.GetComponent<PlayerController>().enabled = true;
+                    UIManager.main.ClearQueue();
+                    UIManager.main.LoopQueue(true);
+                }
+            }
+            else if (Input.GetKeyUp(exitKey) && !inMenu)
+            {
+                inMenu = true;
+                globalLight.intensity = 0;
+                UIManager.main.ClearQueue();
+                UIManager.main.LoopQueue();
+                if (currentFightingEnemy != null)
+                {
+                    currentFightingEnemy.EnemyWeapon.enabled = false;
+                    currentFightingEnemy.enabled = false;
+                }
+                player.GetComponent<PlayerController>().enabled = false;
+                UIManager.main.ShowMessage("PAUSED");
+                UIManager.main.ShowMessage(string.Format(
+                    "Really Exit? Press {0}.",
+                    exitConfirmKey
+                ));
+                UIManager.main.ShowMessage(string.Format(
+                    "Press {0} again to return to the game.",
+                    exitKey
+                ));
+                UIManager.main.ShowMessage(string.Format(
+                    "Press {0} to restart the game.",
+                    restartKey
+                ));
             }
         }
     }

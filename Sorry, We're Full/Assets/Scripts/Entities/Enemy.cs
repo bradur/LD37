@@ -183,10 +183,13 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider2D)
     {
-        if (collider2D.tag == "Projectile")
+        if (isFighting)
         {
-            collider2D.transform.SetParent(transform, true);
-            GetHit(InventoryItemType.Bow);
+            if (collider2D.tag == "Projectile")
+            {
+                collider2D.transform.SetParent(transform, true);
+                GetHit(InventoryItemType.Bow);
+            }
         }
     }
 }

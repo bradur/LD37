@@ -78,9 +78,9 @@ public class UIManager : MonoBehaviour {
         displayMessageManager.ShowMessage(message);
     }
 
-    public void LoopQueue()
+    public void LoopQueue(bool stopLoop = false)
     {
-        displayMessageManager.LoopQueue();
+        displayMessageManager.LoopQueue(stopLoop);
     }
 
     public void ClearQueue()

@@ -44,6 +44,7 @@ public class Animal : MonoBehaviour
     private float currentMoveTime = 0f;
     private bool moving = false;
     private bool isDead = false;
+    public bool IsDead { get { return isDead; } }
 
     [SerializeField]
     [Range(2.5f, 10f)]
@@ -78,7 +79,7 @@ public class Animal : MonoBehaviour
     {
         if (collider2D.gameObject.tag == "Projectile")
         {
-           
+            Debug.Log(collider2D.gameObject.name);
             collider2D.transform.SetParent(transform, true);
             bool arrowsFound = false;
             foreach (InventoryItem item in lootItems)
@@ -98,10 +99,6 @@ public class Animal : MonoBehaviour
             if (!isDead) { 
                 GetHit(InventoryItemType.Bow);
             }
-            if (!isDead)
-            {
-                MoveToRandomDirection();
-            }
         }
     }
 
@@ -110,12 +107,32 @@ public class Animal : MonoBehaviour
         MoveToRandomDirection();
     }
 
-    void GetHit(InventoryItemType weapon)
+    public void GetHit(InventoryItemType weapon)
     {
-        health -= 1;
+        int healthLoss = 0;
+        if (weapon == InventoryItemType.Dagger)
+        {
+            healthLoss = rng.Range(1, 3);
+        }
+        else if (weapon == InventoryItemType.ShortSword)
+        {
+            healthLoss = rng.Range(2, 5);
+        }
+        else if (weapon == InventoryItemType.Scimitar)
+        {
+            healthLoss = rng.Range(5, 8);
+        } else if (weapon == InventoryItemType.Bow)
+        {
+            healthLoss = 1;
+        }
+        health -= healthLoss;
         if (health < 1)
         {
             StartDying(weapon);
+        }
+        if (!isDead)
+        {
+            MoveToRandomDirection();
         }
     }
 

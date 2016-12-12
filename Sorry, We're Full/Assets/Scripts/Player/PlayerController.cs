@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Weapon weapon;
+    bool tutorial = true;
 
     public void EquipWeapon(InventoryItemType newWeapon, Sprite sprite)
     {
@@ -108,6 +109,11 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(horizontalAxis) >= 0.05f || Mathf.Abs(verticalAxis) >= 0.05f)
         {
             arrowDirection = direction;
+            if (tutorial)
+            {
+                UIManager.main.LoopQueue(true);
+                tutorial = false;
+            }
         }
     }
 
@@ -126,7 +132,14 @@ public class PlayerController : MonoBehaviour
         }
         else if (collider2D.tag == "Animal")
         {
-            InventoryManager.main.Loot(collider2D.GetComponent<Animal>().Loot());
+            // hitting a live animal with a melee weapon will come here, so test that animal is dead!
+            Animal animal = collider2D.GetComponent<Animal>();
+            if (animal.IsDead) { 
+                InventoryManager.main.Loot(collider2D.GetComponent<Animal>().Loot());
+            } else
+            {
+                animal.GetHit(equippedWeapon);
+            }
         }
 
     }

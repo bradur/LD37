@@ -20,7 +20,10 @@ public enum Action
     BuyArrows,
     RentRoom,
     StartFight,
-    RestartGame
+    RestartGame,
+    ExitConfirm,
+    ToggleMusic,
+    ToggleSfx
 }
 
 public class KeyManager : MonoBehaviour {

@@ -25,7 +25,14 @@ public class DisplayMessage : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject);
+        if (animator != null)
+        {
+            animator.enabled = false;
+        }
+        if (gameObject != null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Init(string message, Transform parent, float messageFadeTime)

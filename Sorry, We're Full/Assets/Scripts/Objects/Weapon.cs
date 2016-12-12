@@ -82,6 +82,7 @@ public class Weapon : MonoBehaviour {
     {
         if (collider2D.tag == "Enemy")
         {
+            
             WorldManager.main.EnemyWasHit(weapon);
         }
     }

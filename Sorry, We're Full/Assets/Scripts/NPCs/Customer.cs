@@ -48,16 +48,19 @@ public class Customer : MonoBehaviour
     {
         if (!isFighting)
         {
-            if (collision2D.gameObject.tag == "Player")
+            if (intervalFinished)
             {
-                string message = greeting;
-                if((int)pc.EquippedWeapon < (int)enemy.EnemyWeapon.Weapon)
+                if (collision2D.gameObject.tag == "Player")
                 {
-                    message = greetingTaunt;
+                    string message = greeting;
+                    if ((int)pc.EquippedWeapon < (int)enemy.EnemyWeapon.Weapon)
+                    {
+                        message = greetingTaunt;
+                    }
+                    UIManager.main.ShowMessage(string.Format("<color=#{0}><b>{1}</b></color>: {2}", ColorText, customerName, message));
+                    UIManager.main.ShowMessage(string.Format("Press {0} to fight <color=#{1}><b>{2}</b></color>!", keyStartFight, ColorText, customerName));
+                    intervalFinished = false;
                 }
-                UIManager.main.ShowMessage(string.Format("<color=#{0}><b>{1}</b></color>: {2}", ColorText, customerName, message));
-                UIManager.main.ShowMessage(string.Format("Press {0} to fight <color=#{1}><b>{2}</b></color>!", keyStartFight, ColorText, customerName));
-                
             }
         }
     }

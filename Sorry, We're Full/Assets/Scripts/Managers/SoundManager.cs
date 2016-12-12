@@ -19,7 +19,9 @@ public enum SoundType
     SellItem,
     BuyItem,
     EquipItem,
-    PlayerWasHit
+    PlayerWasHit,
+    HitMiss,
+    PlayerDie
 }
 
 public class SoundManager : MonoBehaviour {
@@ -30,6 +32,8 @@ public class SoundManager : MonoBehaviour {
     private List<GameSound> sounds = new List<GameSound>();
     private RandomWrapper rng;
 
+    private bool isOn = true;
+
     void Awake()
     {
         main = this;
@@ -38,13 +42,21 @@ public class SoundManager : MonoBehaviour {
     
     public void PlaySound(SoundType soundType)
     {
-        foreach(GameSound gameSound in sounds)
-        {
-            if(gameSound.soundType == soundType)
+        if (isOn) { 
+            foreach(GameSound gameSound in sounds)
             {
-                rng.Choose(gameSound.sounds).Play();
+                if(gameSound.soundType == soundType)
+                {
+                    rng.Choose(gameSound.sounds).Play();
+                }
             }
         }
+    }
+
+    public bool Toggle()
+    {
+        isOn = !isOn;
+        return isOn;
     }
 }
 
